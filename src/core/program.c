@@ -1,5 +1,3 @@
-#include <util/delay.h>
-
 #include "hw/io.h"
 
 void setup()
@@ -10,5 +8,5 @@ void setup()
 void main_loop()
 {
     blink_led(0);
-    _delay_ms(1000);
+    mssleep(1000);
 }

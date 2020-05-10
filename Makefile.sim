@@ -1,0 +1,10 @@
+COMPILE=gcc -Wall -I./include -g -D_DEFAULT_SOURCE
+
+program:
+	$(COMPILE) -c src/hw/sim.c -o sim.o
+	$(COMPILE) -c src/core/program.c -o program.o
+	$(COMPILE) -c src/main.c -o main.o
+	$(COMPILE) -o main main.o program.o sim.o
+
+clean:
+	rm -f *.o main
