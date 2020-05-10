@@ -1,12 +1,12 @@
 #include "hw/io.h"
 
-void setup()
+void sc_setup()
 {
-    setup_leds();
+    hw_setup_leds();
 }
 
-void main_loop()
+void sc_main_loop()
 {
-    blink_led(0);
-    mssleep(1000);
+    hw_blink_led(0);
+    hw_mssleep(1000);
 }

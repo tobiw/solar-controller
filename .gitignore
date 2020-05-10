@@ -2,3 +2,4 @@
 testrunner
 *.elf
 *.hex
+main

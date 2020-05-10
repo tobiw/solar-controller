@@ -2,10 +2,11 @@
 
 int main()
 {
-    setup();
+    sc_setup();
 
     while (1)
     {
-        main_loop();
+        sc_main_loop();
     }
 }
+
