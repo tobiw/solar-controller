@@ -1,13 +1,14 @@
-NOVAPROVA_CFLAGS= -Inovaprova/install_dir/include/novaprova
-NOVAPROVA_LIBS= -Lnovaprova/install_dir/lib -lnovaprova -lstdc++ -lbfd -ldl -lrt -lxml2
-CFLAGS= $(NOVAPROVA_CFLAGS)
-
-novaprova:
-	git clone https://github.com/novaprova/novaprova.git
-	cd novaprova && autoreconf -iv && ./configure --prefix=$(pwd)/install_dir --disable-docs && make -j8 && make install
-
-testrunner: test.o
-	$(LINK.c) -o $@ $^ $(NOVAPROVA_LIBS)
+TEST_OBJ=test_sensors.o
+DEP_OBJ=../core/sensors.o
+CFLAGS=-Wall -g -I../../include
+LDFLAGS=-lcunit -lm
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+testrunner: $(DEP_OBJ) $(TEST_OBJ)
+	gcc -o testrunner $^ $(LDFLAGS)
+	./testrunner
+
+clean:
+	rm -f testrunner $(TEST_OBJ) $(DEP_OBJ)
