@@ -12,8 +12,9 @@ fuse:
 program:
 	$(COMPILE) -c src/hw/atmega328p.c -o atmega328p.o
 	$(COMPILE) -c src/core/program.c -o program.o
+	$(COMPILE) -c src/core/sensors.c -o sensors.o
 	$(COMPILE) -c src/main_avr.c -o main_avr.o
-	$(COMPILE) -o main_avr.elf main_avr.o program.o atmega328p.o
+	$(COMPILE) -o main_avr.elf main_avr.o program.o sensors.o atmega328p.o -lm
 	avr-objcopy -j .text -j .data -O ihex main_avr.elf main_avr.hex
 	avr-size main_avr.hex
 

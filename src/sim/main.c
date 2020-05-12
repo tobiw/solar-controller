@@ -6,10 +6,10 @@ sim_state_t g_sim_state;
 
 static void sim_update_inputs(sim_state_t *s)
 {
-    s->temp_sensors[0] = 1010;
-    s->temp_sensors[1] = 250;
-    s->temp_sensors[2] = 550;
-    s->temp_sensors[3] = 610;
+    s->temp_sensors[0] = 400;
+    s->temp_sensors[1] = 400;
+    s->temp_sensors[2] = 400;
+    s->temp_sensors[3] = 400;
 }
 
 static void sim_update_ui(sim_state_t *s)
