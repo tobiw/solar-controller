@@ -3,3 +3,4 @@ testrunner
 *.elf
 *.hex
 main
+inputs.txt
