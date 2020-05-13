@@ -23,9 +23,8 @@ static void sim_update_inputs(sim_state_t *s)
 
     if (r > 0)
     {
-        int r = sscanf(buf, "%d,%d,%d,%d",
-                       &s->temp_sensors[0], &s->temp_sensors[1], &s->temp_sensors[2], &s->temp_sensors[3]);
-        printf("sscanf %d\n", r);
+        sscanf(buf, "%d,%d,%d,%d",
+               &s->temp_sensors[0], &s->temp_sensors[1], &s->temp_sensors[2], &s->temp_sensors[3]);
     }
     else
     {

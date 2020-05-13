@@ -1,7 +1,7 @@
 #include <stdint.h>
 
-void hw_setup_leds();
-void hw_setup_inputs();
+void hw_setup_leds(uint8_t *pins, uint8_t len);
+void hw_setup_inputs(uint8_t *pins, uint8_t len);
 void hw_blink_led(uint8_t i);
 int hw_get_adc_input(uint8_t i);
 void hw_mssleep(unsigned long d);

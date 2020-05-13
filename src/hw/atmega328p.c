@@ -2,12 +2,11 @@
 #include <util/delay.h>
 #include <string.h>
 
-void hw_setup_leds()
+void hw_setup_leds(uint8_t *pins, uint8_t len)
 {
-    DDRC = DDC0;
 }
 
-void hw_setup_inputs()
+void hw_setup_inputs(uint8_t *pins, uint8_t len)
 {
     // Analog inputs
     ADMUX = (1<<REFS1)|(1<<REFS0);
@@ -15,6 +14,10 @@ void hw_setup_inputs()
 
     // DDRx ...
     // PULLUP?
+    for (int i = 0; i < len; i++)
+    {
+        pins[i] = pins[i];
+    }
 }
 
 void hw_blink_led(uint8_t i)
@@ -56,6 +59,10 @@ void hw_uart_flush(void)
 
 void hw_uart_putc(char c)
 {
+    if (c == '\n') // insert \r for correct tty behaviour
+    {
+        hw_uart_putc('\r');
+    }
     while (!(UCSR0A & (1<<UDRE0)));
     UDR0 = c;
 }
