@@ -40,6 +40,15 @@ void hw_mssleep(unsigned long d)
     usleep(d * 1000);
 }
 
+void hw_uart_init(void) {}
+void hw_uart_flush(void) {}
+char hw_uart_getc() { return 0; }
+void hw_uart_putc(char c) {}
+void hw_uart_puts(char *s)
+{
+    printf("%s", s);
+}
+
 void hw_spi_init(uint8_t enable_interrupts) {}
 unsigned char hw_spi_xmit(unsigned char data) { return 0; }
 int hw_spi_xmit_buf(unsigned char *data, int len) { return 0; }

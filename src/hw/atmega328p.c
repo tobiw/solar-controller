@@ -30,6 +30,40 @@ void hw_mssleep(unsigned long d)
         _delay_ms(1);
 }
 
+#define UART_BAUDRATE 9600
+
+void hw_uart_init(void)
+{
+    UBRR0H = (((F_CPU/UART_BAUDRATE)/16)-1)>>8; // set baud rate
+    UBRR0L = (((F_CPU/UART_BAUDRATE)/16)-1);
+    UCSR0B = (1<<RXEN0)|(1<<TXEN0);             // enable Rx & Tx
+    UCSR0C=  (1<<UCSZ01)|(1<<UCSZ00);           // config USART; 8N1
+}
+
+void hw_uart_flush(void)
+{
+    unsigned char x;
+    while (UCSR0A & (1<<RXC0)) x = UDR0;
+    x = x;
+}
+
+void hw_uart_putc(char c)
+{
+    while (!(UCSR0A & (1<<UDRE0)));
+    UDR0 = c;
+}
+
+void hw_uart_puts(char *s)
+{
+    while (*s != 0) hw_uart_putc(*(s++));
+}
+
+char hw_uart_getc()
+{
+    while (!(UCSR0A & (1<<RXC0)));
+    return UDR0;
+}
+
 void hw_spi_init(uint8_t enable_interrupts)
 {
     DDRB = (1<<DDB5) | (1<<DDB3); // MOSI and SCK as output

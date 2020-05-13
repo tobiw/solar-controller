@@ -2,11 +2,16 @@
 #include "core/sensors.h"
 #include <stdio.h>
 
+#define NAME "OpenSC"
+#define VERSION "0.1"
+
 void sc_setup()
 {
     hw_setup_leds();
     hw_setup_inputs();
     hw_spi_init(0);
+    hw_uart_init();
+    hw_uart_puts(NAME " " VERSION "\n\r----------\n\r");
 }
 
 void sc_main_loop()
