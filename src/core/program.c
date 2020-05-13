@@ -6,6 +6,7 @@ void sc_setup()
 {
     hw_setup_leds();
     hw_setup_inputs();
+    hw_spi_init(0);
 }
 
 void sc_main_loop()
