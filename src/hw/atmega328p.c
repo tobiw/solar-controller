@@ -9,9 +9,12 @@ void hw_setup_leds()
 
 void hw_setup_inputs()
 {
+    // Analog inputs
+    ADMUX = (1<<REFS1)|(1<<REFS0);
+    ADCSRA = (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0)|(1<<ADEN);
+
     // DDRx ...
     // PULLUP?
-    // ADC?
 }
 
 void hw_blink_led(uint8_t i)
@@ -21,7 +24,11 @@ void hw_blink_led(uint8_t i)
 
 int hw_get_adc_input(uint8_t i)
 {
-    return ADC;
+    ADMUX &= 0xF0;
+    ADMUX |= i;
+    ADCSRA |= (1<<ADSC); // start conversion
+    while (ADCSRA & (1<<ADSC)); // wait for conversion
+    return (ADCH << 8) | ADCL;
 }
 
 void hw_mssleep(unsigned long d)
