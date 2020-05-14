@@ -1,11 +1,22 @@
-COMPILE=gcc -Wall -I./include -g -D_DEFAULT_SOURCE
+CFLAGS=-Wall -I./include -g -D_DEFAULT_SOURCE
+LDFLAGS=-lm
 
-program:
-	$(COMPILE) -c src/hw/sim.c -o sim.o
-	$(COMPILE) -c src/core/program.c -o program.o
-	$(COMPILE) -c src/core/sensors.c -o sensors.o
-	$(COMPILE) -c src/sim/main.c -o main.o
-	$(COMPILE) -o main main.o program.o sensors.o sim.o -lm
+SRC := src
+OBJ := obj/sim
+
+SOURCES := $(wildcard $(SRC)/core/*.c) $(wildcard $(SRC)/sim/*.c) $(SRC)/hw/sim.c
+OBJECTS := $(subst .c,.o,$(SOURCES))
+OBJECTS := $(subst $(SRC)/,$(OBJ)/,$(OBJECTS))
+OBJDIRS := $(dir $(OBJECTS))
+
+$(OBJ)/%.o: $(SRC)/%.c
+	@mkdir -p $(OBJ)/$(OBJDIRS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+sim: $(OBJECTS)
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 clean:
-	rm -f *.o main
+	rm -rf $(OBJ) sim
+
+all: sim

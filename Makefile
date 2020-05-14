@@ -1,6 +1,6 @@
 all:
-	make -f Makefile.avr program
-	make -f Makefile.sim program
+	make -f Makefile.avr main_avr.hex
+	make -f Makefile.sim sim
 
 test:
 	cd src/tests && make
