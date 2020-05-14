@@ -50,5 +50,6 @@ void hw_uart_puts(char *s)
 }
 
 void hw_spi_init(uint8_t enable_interrupts) {}
+void hw_spi_select(uint8_t select) {}
 unsigned char hw_spi_xmit(unsigned char data) { return 0; }
 int hw_spi_xmit_buf(unsigned char *data, int len) { return 0; }

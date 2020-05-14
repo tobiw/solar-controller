@@ -8,10 +8,6 @@ void hw_setup_leds(uint8_t *pins, uint8_t len)
 
 void hw_setup_inputs(uint8_t *pins, uint8_t len)
 {
-    // Analog inputs
-    ADMUX = (1<<REFS1)|(1<<REFS0);
-    ADCSRA = (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0)|(1<<ADEN);
-
     // DDRx ...
     // PULLUP?
     for (int i = 0; i < len; i++)
@@ -25,13 +21,19 @@ void hw_blink_led(uint8_t i)
     PORTC ^= 1;
 }
 
-int hw_get_adc_input(uint8_t i)
+uint16_t hw_get_adc_input(uint8_t i)
 {
-    ADMUX &= 0xF0;
-    ADMUX |= i;
+    ADMUX = (1<<REFS1)|(1<<REFS0); // 1.1V internal reference
+    ADCSRA = (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0); // high resolution
+    ADCSRA |= (1<<ADEN); // enable ADC
+    ADMUX &= 0xF0; // set previous MUX channels to 0
+    ADMUX |= i; // set ADCi as active MUX channel
+    ADCSRB = 0; // free-run mode
     ADCSRA |= (1<<ADSC); // start conversion
     while (ADCSRA & (1<<ADSC)); // wait for conversion
-    return (ADCH << 8) | ADCL;
+    uint8_t low = ADCL; // read low value first
+    uint8_t hi = ADCH;
+    return ((hi << 8) | low) & 0x3ff; // mask 10 bit value
 }
 
 void hw_mssleep(unsigned long d)
@@ -80,8 +82,16 @@ char hw_uart_getc()
 
 void hw_spi_init(uint8_t enable_interrupts)
 {
-    DDRB = (1<<DDB5) | (1<<DDB3); // MOSI and SCK as output
+    DDRB = (1<<DDB5) | (1<<DDB3) | (1<<DDB2); // MOSI, SCK and SS as output
     SPCR = (1<<SPE) | (1<<MSTR) | (1<<SPR0) | (enable_interrupts<<SPIE); // enable SPI master
+}
+
+void hw_spi_select(uint8_t select)
+{
+    if (select)
+        PORTB &= ~(1<<PORTB2); // active low
+    else
+        PORTB |= (1<<PORTB2);
 }
 
 unsigned char hw_spi_xmit(unsigned char data)

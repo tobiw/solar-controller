@@ -9,9 +9,15 @@ Open Source solar hot water system controller
 
 ## Building from source
 To build everything: `make`
-To build only the AVR hex or only the simulator: `make -f Makefile.avr program`
-or `make -f Makefile.sim program`
+To build only the AVR hex or only the simulator: `make -f Makefile.avr main_avr.hex`
+or `make -f Makefile.sim sim`
 To flash the AVR hex using avrdude: `make -f Makefile.avr install`
+Appropriate fuse settings can be burned with `make -f Makefile.avr fuse`
+
+## Running the simulator
+Compile and run the `sim` executable. Input pins can be manipulated via the
+inputs.txt file (comma-separated list of all input pin values). The simulator
+prints its current state to stdout once a second.
 
 ## Test code for Arduino for reading Pt1000 and NTC 10K temperature sensors
 This requires the physical setup to use voltage follower opamps and a
