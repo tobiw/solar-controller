@@ -5,7 +5,6 @@
 /*
  * HW-independent serial output function that works like printf
  */
-
 void sc_serial_printf(char *format, ...)
 {
     char d[128];

@@ -1,12 +1,6 @@
 #include <math.h>
 #include <core/sensors.h>
 
-// hw_set_adc_ref(DEFAULT); // followed by fake read
-// hw_get_analog_averaged(PIN_NTC_x);
-
-// hw_set_adc_ref(INTERNAL); // followed by fake read
-// hw_get_analog_averaged(PIN_PT1000);
-
 float sc_sensors_ntc_conversion(int raw)
 {
     const unsigned int THERMISTORNOMINAL = 10000;

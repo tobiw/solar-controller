@@ -100,14 +100,3 @@ unsigned char hw_spi_xmit(unsigned char data)
     while (!(SPSR & (1<<SPIF))); // wait for transmission complete
     return SPDR; // return received data from buffer register
 }
-
-int hw_spi_xmit_buf(unsigned char *data, int len)
-{
-    unsigned int i;
-    for (i = 0; i < len; i++)
-    {
-        char c = data[i];
-        data[i] = hw_spi_xmit(c);
-    }
-    return i;
-}

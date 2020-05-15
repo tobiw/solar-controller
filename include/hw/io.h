@@ -13,4 +13,3 @@ char hw_uart_getc();
 void hw_spi_init(uint8_t enable_interrupts);
 void hw_spi_select(uint8_t select);
 unsigned char hw_spi_xmit(unsigned char data);
-int hw_spi_xmit_buf(unsigned char *data, int len);
