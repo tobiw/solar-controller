@@ -1,6 +1,6 @@
-TEST_OBJ=test_sensors.o
-DEP_OBJ=../core/sensors.o
-CFLAGS=-Wall -g -I../../include
+TEST_OBJ=test_sensors.o test_wiznet.o test.o
+DEP_OBJ=../core/sensors.o ../core/wiznet.o ../hw/mock.o
+CFLAGS=-Wall -g -I../../include -DUNIT_TEST
 LDFLAGS=-lcunit -lm
 
 %.o: %.c
