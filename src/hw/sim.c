@@ -40,6 +40,11 @@ void hw_mssleep(unsigned long d)
     usleep(d * 1000);
 }
 
+void hw_ussleep(unsigned long d)
+{
+    usleep(d);
+}
+
 void hw_uart_init(void) {}
 void hw_uart_flush(void) {}
 char hw_uart_getc() { return 0; }

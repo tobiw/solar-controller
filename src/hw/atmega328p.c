@@ -42,6 +42,12 @@ void hw_mssleep(unsigned long d)
         _delay_ms(1);
 }
 
+void hw_ussleep(unsigned long d)
+{
+    for (unsigned long i = 0; i < d; i++)
+        _delay_us(1);
+}
+
 #define UART_BAUDRATE 9600
 
 void hw_uart_init(void)

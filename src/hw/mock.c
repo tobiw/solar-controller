@@ -22,3 +22,13 @@ unsigned char hw_spi_xmit(unsigned char data)
     spi_send_buffer[spi_buf_pos] = data;
     return spi_recv_buffer[spi_buf_pos++];
 }
+
+void hw_mssleep(unsigned long d)
+{
+    usleep(d * 1000);
+}
+
+void hw_ussleep(unsigned long d)
+{
+    usleep(d);
+}

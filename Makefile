@@ -3,7 +3,7 @@ all:
 	make -f Makefile.sim sim
 
 test:
-	cd src/tests && make
+	cd src/tests && make clean && make
 
 clean:
 	make -f Makefile.avr clean
