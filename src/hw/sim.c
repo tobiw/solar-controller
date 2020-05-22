@@ -57,3 +57,11 @@ void hw_uart_puts(char *s)
 void hw_spi_init(uint8_t enable_interrupts) {}
 void hw_spi_select(uint8_t select) {}
 unsigned char hw_spi_xmit(unsigned char data) { return 0; }
+
+void hw_i2c_init()
+{
+}
+
+void hw_i2c_write(uint16_t addr, uint8_t data)
+{
+}

@@ -106,3 +106,11 @@ unsigned char hw_spi_xmit(unsigned char data)
     while (!(SPSR & (1<<SPIF))); // wait for transmission complete
     return SPDR; // return received data from buffer register
 }
+
+void hw_i2c_init()
+{
+}
+
+void hw_i2c_write(uint16_t addr, uint8_t data)
+{
+}
