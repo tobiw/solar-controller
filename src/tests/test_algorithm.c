@@ -15,6 +15,11 @@ static int algorithm_init_suite(void)
 
 static int algorithm_clean_suite(void) { return 0; }
 
+void test_validate_config()
+{
+    CU_ASSERT_EQUAL(sc_validate_config(), 1);
+}
+
 void test_temperature_below_pump_threshold()
 {
 
@@ -118,6 +123,7 @@ int main_algorithm (void)
         return CU_get_error();              \
     }
 
+    ADD_TEST(test_validate_config)
     ADD_TEST(test_temperature_below_pump_threshold)
     ADD_TEST(test_temperature_above_pump_threshold)
     ADD_TEST(test_temperature_equal_pump_threshold)

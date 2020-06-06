@@ -28,6 +28,11 @@ void sc_setup()
 #endif
 
     sc_config.pump_threshold = 100; // 10 degC
+    if (sc_validate_config() == 0)
+    {
+        sc_serial_printf("Error: Invalid config\n");
+        hw_exit();
+    }
 }
 
 void sc_main_loop()

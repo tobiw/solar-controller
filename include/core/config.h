@@ -9,3 +9,5 @@ struct sc_config_t {
 };
 
 extern struct sc_config_t sc_config;
+
+int8_t sc_validate_config();
