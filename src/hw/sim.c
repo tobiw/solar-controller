@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 #include "sim/sim.h"
 #include "config.h"
 
@@ -43,6 +44,12 @@ void hw_mssleep(unsigned long d)
 void hw_ussleep(unsigned long d)
 {
     usleep(d);
+}
+
+void hw_exit()
+{
+    printf("Exiting program with code 1\n");
+    exit(1);
 }
 
 void hw_uart_init(void) {}

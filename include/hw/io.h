@@ -6,6 +6,7 @@ void hw_blink_led(uint8_t i);
 int hw_get_adc_input(uint8_t i);
 void hw_mssleep(unsigned long d);
 void hw_ussleep(unsigned long d);
+void hw_exit();
 
 void hw_uart_init(void);
 void hw_uart_flush(void);

@@ -48,6 +48,11 @@ void hw_ussleep(unsigned long d)
         _delay_us(1);
 }
 
+void hw_exit()
+{
+    while(1) {}
+}
+
 #define UART_BAUDRATE 9600
 
 void hw_uart_init(void)
