@@ -189,27 +189,39 @@ void sc_lcd_set_cursor(uint8_t col, uint8_t row)
 void sc_lcd_set_display(uint8_t enable)
 {
     if (enable == 0)
+    {
         lcd_displaycontrol &= ~LCD_DISPLAYON;
+    }
     else
+    {
         lcd_displaycontrol |= LCD_DISPLAYON;
+    }
     sc_lcd_command(LCD_DISPLAYCONTROL | lcd_displaycontrol);
 }
 
 void sc_lcd_set_cursor_visibility(uint8_t enable)
 {
     if (enable == 0)
+    {
         lcd_displaycontrol &= ~LCD_CURSORON;
+    }
     else
+    {
         lcd_displaycontrol |= LCD_CURSORON;
+    }
     sc_lcd_command(LCD_DISPLAYCONTROL | lcd_displaycontrol);
 }
 
 void sc_lcd_set_blink(uint8_t enable)
 {
     if (enable == 0)
+    {
         lcd_displaycontrol &= ~LCD_BLINKON;
+    }
     else
+    {
         lcd_displaycontrol |= LCD_BLINKON;
+    }
     sc_lcd_command(LCD_DISPLAYCONTROL | lcd_displaycontrol);
 }
 
@@ -226,9 +238,13 @@ void sc_lcd_scroll_right()
 void sc_lcd_autoscroll(uint8_t enable)
 {
     if (enable)
+    {
         lcd_displaymode &= ~LCD_ENTRYSHIFTINCREMENT;
+    }
     else
+    {
         lcd_displaymode |= LCD_ENTRYSHIFTINCREMENT;
+    }
 	sc_lcd_command(LCD_ENTRYMODESET | lcd_displaymode);
 }
 
