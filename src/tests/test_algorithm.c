@@ -93,6 +93,14 @@ void test_pump_force_on()
     CU_ASSERT_EQUAL(sc_should_pump_turn_on(temps1, 4), 1);
 }
 
+void test_dump_water()
+{
+    CU_ASSERT_EQUAL(sc_should_hot_water_dump_valve_open(0), 0);
+    CU_ASSERT_EQUAL(sc_should_hot_water_dump_valve_open(900), 0);
+    CU_ASSERT_EQUAL(sc_should_hot_water_dump_valve_open(950), 1);
+    CU_ASSERT_EQUAL(sc_should_hot_water_dump_valve_open(1000), 1);
+}
+
 int main_algorithm (void)
 {
     CU_pSuite pSuite = NULL;
@@ -121,6 +129,7 @@ int main_algorithm (void)
     ADD_TEST(test_pump_on)
     ADD_TEST(test_pump_force_off)
     ADD_TEST(test_pump_force_on)
+    ADD_TEST(test_dump_water)
 
     return CU_get_error();
 }

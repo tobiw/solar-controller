@@ -103,3 +103,11 @@ int8_t sc_should_pump_turn_on(int16_t *temperatures, uint8_t len)
 
     return pump_on;
 }
+
+/*
+ * Check if hot water needs to be dumped from the tank via emergency valve.
+ */
+int8_t sc_should_hot_water_dump_valve_open(int16_t temp_tank)
+{
+    return sc_is_temperature_above_tank_critical_threshold(temp_tank);
+}
