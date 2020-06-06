@@ -2,7 +2,8 @@
 #include "hw/io.h" // TODO: try to avoid direct hw calls on this level
 #include "core/sensors.h"
 #include "core/serial.h"
-#include "config.h"
+#include "core/config.h" // config structure for program runtime
+#include "config.h" // hardcoded config defines
 
 #include <stdio.h>
 
@@ -25,6 +26,8 @@ void sc_setup()
     hw_uart_init();
     sc_serial_printf(NAME " " VERSION "\n----------\n");
 #endif
+
+    sc_config.pump_threshold = 100; // 10 degC
 }
 
 void sc_main_loop()

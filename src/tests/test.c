@@ -4,6 +4,7 @@
 
 int main_sensors();
 int main_wiznet();
+int main_algorithm();
 
 int main(void)
 {
@@ -12,6 +13,7 @@ int main(void)
 
    main_sensors();
    main_wiznet();
+   main_algorithm();
 
    // Run all tests using the basic interface
    CU_basic_set_mode(CU_BRM_VERBOSE);

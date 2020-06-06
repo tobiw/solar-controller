@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include "core/sensors.h"
 
-int sensors_init_suite(void) { return 0; }
-int sensors_clean_suite(void) { return 0; }
+static int sensors_init_suite(void) { return 0; }
+static int sensors_clean_suite(void) { return 0; }
 
 void ntc_conversion_1(void)
 {

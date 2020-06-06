@@ -9,8 +9,8 @@ uint8_t spi_recv_buffer[16];
 uint8_t spi_selected;
 uint8_t mock_wiznet_regs[SIZE_MOCK_REGS];
 
-int wiznet_init_suite(void) { return 0; }
-int wiznet_clean_suite(void) { return 0; }
+static int wiznet_init_suite(void) { return 0; }
+static int wiznet_clean_suite(void) { return 0; }
 
 void test_write(void)
 {
