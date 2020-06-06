@@ -66,3 +66,40 @@ int8_t sc_is_temperature_below_collector_freezing_threshold(int16_t temp_collect
     }
     return 0;
 }
+
+/*
+ * Check if pump should turn on. This depends on difference between tank and collector temperatures
+ * as well as edge cases (collector critically hot or too cold; tank too hot?).
+ */
+int8_t sc_should_pump_turn_on(int16_t *temperatures, uint8_t len)
+{
+    if (len != 4) return -1;
+
+    const int16_t t_collector = temperatures[0];
+    const int16_t t_tank1 = temperatures[1];
+    const int16_t t_tank3 = temperatures[3];
+    int8_t pump_on = 0;
+
+    if (sc_is_temperature_above_pump_threshold(t_collector, t_tank1) == 1)
+    {
+        pump_on = 1;
+    }
+    else if (sc_is_temperature_below_collector_freezing_threshold(t_collector) == 1)
+    {
+        // force pump on immediately
+        return 1;
+    }
+
+    if (sc_is_temperature_above_tank_alarm_threshold(t_tank3) == 1) // TODO: max of all tank temperatures?
+    {
+        pump_on = 0;
+    }
+
+    // A critically hot collector overrides a hot tank because the hot tank water can be dumped
+    if (sc_is_temperature_above_collector_critical_threshold(t_collector) == 1)
+    {
+        pump_on = 1;
+    }
+
+    return pump_on;
+}

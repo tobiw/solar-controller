@@ -65,6 +65,34 @@ void test_temperature_collector_freezing_threshold()
     CU_ASSERT_EQUAL(sc_is_temperature_below_collector_freezing_threshold(-200), 1);
 }
 
+void test_pump_off()
+{
+    // collector, tank bottom, tank middle, tank top
+    int16_t temps1[4] = { 400, 400, 500, 600 };
+    CU_ASSERT_EQUAL(sc_should_pump_turn_on(temps1, 4), 0);
+}
+
+void test_pump_on()
+{
+    // collector, tank bottom, tank middle, tank top
+    int16_t temps1[4] = { 520, 400, 500, 600 };
+    CU_ASSERT_EQUAL(sc_should_pump_turn_on(temps1, 4), 1);
+}
+
+void test_pump_force_off()
+{
+    // collector, tank bottom, tank middle, tank top
+    int16_t temps1[4] = { 1100, 500, 600, 800 };
+    CU_ASSERT_EQUAL(sc_should_pump_turn_on(temps1, 4), 0);
+}
+
+void test_pump_force_on()
+{
+    // collector, tank bottom, tank middle, tank top
+    int16_t temps1[4] = { 10, 200, 300, 300 };
+    CU_ASSERT_EQUAL(sc_should_pump_turn_on(temps1, 4), 1);
+}
+
 int main_algorithm (void)
 {
     CU_pSuite pSuite = NULL;
@@ -89,6 +117,10 @@ int main_algorithm (void)
     ADD_TEST(test_temperature_tank_critical_threshold)
     ADD_TEST(test_temperature_collector_critical_threshold)
     ADD_TEST(test_temperature_collector_freezing_threshold)
+    ADD_TEST(test_pump_off)
+    ADD_TEST(test_pump_on)
+    ADD_TEST(test_pump_force_off)
+    ADD_TEST(test_pump_force_on)
 
     return CU_get_error();
 }
