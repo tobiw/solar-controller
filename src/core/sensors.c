@@ -1,6 +1,35 @@
 #include <math.h>
 #include <core/sensors.h>
 
+int16_t temperature_sensor_db[4];
+
+int16_t sc_collector_temperature_get()
+{
+    return temperature_sensor_db[0];
+}
+
+void sc_collector_temperature_set(int16_t t)
+{
+    temperature_sensor_db[0] = t;
+}
+
+int16_t sc_tank_temperature_get(uint8_t i)
+{
+    if (i > 2)
+    {
+        return 0x8000; // smallest possible int16_t value
+    }
+    return temperature_sensor_db[i+1];
+}
+
+void sc_tank_temperature_set(uint8_t i, int16_t t)
+{
+    if (i <= 2)
+    {
+        temperature_sensor_db[i+1] = t;
+    }
+}
+
 float sc_sensors_ntc_conversion(int raw)
 {
     const unsigned int THERMISTORNOMINAL = 10000;
