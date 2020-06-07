@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include "core/sensors.h"
 
-static int init_suite(void) { return 0; }
-static int clean_suite(void) { return 0; }
+int sensors_init_suite(void) { return 0; }
+int sensors_clean_suite(void) { return 0; }
 
 extern int16_t temperature_sensor_db[4];
 
@@ -69,31 +69,13 @@ void test_temperature_get_invalid()
     CU_ASSERT_EQUAL(sc_tank_temperature_get(3), (int16_t)((1<<16) - (1<<15))); // -32768 / 0x8000
 }
 
-int main_sensors (void)
-{
-    CU_pSuite pSuite = NULL;
-
-    pSuite = CU_add_suite("sensors", init_suite, clean_suite);
-    if (NULL == pSuite)
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-#define ADD_TEST(t) \
-    if (NULL == CU_add_test(pSuite, #t, t)) \
-    {                                       \
-        CU_cleanup_registry();              \
-        return CU_get_error();              \
-    }
-
-    ADD_TEST(ntc_conversion_1)
-    ADD_TEST(ntc_conversion_2)
-    ADD_TEST(pt1000_conversion_1)
-    ADD_TEST(pt1000_conversion_2)
-    ADD_TEST(test_temperature_set)
-    ADD_TEST(test_temperature_get)
-    ADD_TEST(test_temperature_get_invalid)
-
-    return CU_get_error();
-}
+CU_TestInfo tests_sensors[] = {
+    {"ntc_conversion_1", ntc_conversion_1},
+    {"ntc_conversion_2", ntc_conversion_2},
+    {"pt1000_conversion_1", pt1000_conversion_1},
+    {"pt1000_conversion_2", pt1000_conversion_2},
+    {"test_temperature_set", test_temperature_set},
+    {"test_temperature_get", test_temperature_get},
+    {"test_temperature_get_invalid", test_temperature_get_invalid},
+    CU_TEST_INFO_NULL,
+};

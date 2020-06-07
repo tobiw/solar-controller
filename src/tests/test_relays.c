@@ -3,12 +3,13 @@
 
 uint8_t output_pins[3];
 
-static int init_suite(void)
+int relays_init_suite(void)
 {
     memset(output_pins, 0, sizeof(output_pins));
     return 0;
 }
-static int clean_suite(void) { return 0; }
+
+int relays_clean_suite(void) { return 0; }
 
 void test_pump_relay()
 {
@@ -34,27 +35,9 @@ void test_tank_heater_relay()
     CU_ASSERT_EQUAL(output_pins[2], 0);
 }
 
-int main_relays (void)
-{
-    CU_pSuite pSuite = NULL;
-
-    pSuite = CU_add_suite("relays", init_suite, clean_suite);
-    if (NULL == pSuite)
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-#define ADD_TEST(t) \
-    if (NULL == CU_add_test(pSuite, #t, t)) \
-    {                                       \
-        CU_cleanup_registry();              \
-        return CU_get_error();              \
-    }
-
-    ADD_TEST(test_pump_relay)
-    ADD_TEST(test_hot_water_dump_relay)
-    ADD_TEST(test_tank_heater_relay)
-
-    return CU_get_error();
-}
+CU_TestInfo tests_relays[] = {
+    {"test_pump_relay", test_pump_relay},
+    {"test_hot_water_dump_relay", test_hot_water_dump_relay},
+    {"test_tank_heater_relay", test_tank_heater_relay},
+    CU_TEST_INFO_NULL,
+};

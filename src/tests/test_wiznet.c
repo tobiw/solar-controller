@@ -9,8 +9,8 @@ uint8_t spi_recv_buffer[16];
 uint8_t spi_selected;
 uint8_t mock_wiznet_regs[SIZE_MOCK_REGS];
 
-static int wiznet_init_suite(void) { return 0; }
-static int wiznet_clean_suite(void) { return 0; }
+int wiznet_init_suite(void) { return 0; }
+int wiznet_clean_suite(void) { return 0; }
 
 void test_write(void)
 {
@@ -109,32 +109,15 @@ void test_receive_invalid(void)
     CU_ASSERT_EQUAL(sc_wiznet_receive(0, &data, 0), -1);
 }
 
-int main_wiznet (void)
-{
-    CU_pSuite pSuite = NULL;
-
-    pSuite = CU_add_suite("wiznet", wiznet_init_suite, wiznet_clean_suite);
-    if (NULL == pSuite) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-#define ADD_TEST(t) \
-    if (NULL == CU_add_test(pSuite, #t, t)) \
-    {                                       \
-        CU_cleanup_registry();              \
-        return CU_get_error();              \
-    }
-
-    ADD_TEST(test_write)
-    ADD_TEST(test_init)
-    ADD_TEST(test_set_ip)
-    ADD_TEST(test_set_mac)
-    ADD_TEST(test_disconnect)
-    ADD_TEST(test_close)
-    ADD_TEST(test_open_socket)
-    ADD_TEST(test_send_invalid)
-    ADD_TEST(test_receive_invalid)
-
-    return CU_get_error();
-}
+CU_TestInfo tests_wiznet[] = {
+    {"test_write", test_write},
+    {"test_init", test_init},
+    {"test_set_mac", test_set_mac},
+    {"test_set_ip", test_set_ip},
+    {"test_disconnect", test_disconnect},
+    {"test_close", test_close},
+    {"test_open_socket", test_open_socket},
+    {"test_send_invalid", test_send_invalid},
+    {"test_receive_invalid", test_receive_invalid},
+    CU_TEST_INFO_NULL,
+};

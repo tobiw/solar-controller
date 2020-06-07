@@ -3,7 +3,7 @@
 #include "core/algorithm.h"
 #include "core/config.h"
 
-static int algorithm_init_suite(void)
+int algorithm_init_suite(void)
 {
     sc_config.pump_threshold = 100; // 10 degC
     sc_config.tank_alarm_threshold = 800; // 80 degC
@@ -13,7 +13,7 @@ static int algorithm_init_suite(void)
     return 0;
 }
 
-static int algorithm_clean_suite(void) { return 0; }
+int algorithm_clean_suite(void) { return 0; }
 
 void test_validate_config()
 {
@@ -106,36 +106,19 @@ void test_dump_water()
     CU_ASSERT_EQUAL(sc_should_hot_water_dump_valve_open(1000), 1);
 }
 
-int main_algorithm (void)
-{
-    CU_pSuite pSuite = NULL;
-
-    pSuite = CU_add_suite("algorithm", algorithm_init_suite, algorithm_clean_suite);
-    if (NULL == pSuite) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-#define ADD_TEST(t) \
-    if (NULL == CU_add_test(pSuite, #t, t)) \
-    {                                       \
-        CU_cleanup_registry();              \
-        return CU_get_error();              \
-    }
-
-    ADD_TEST(test_validate_config)
-    ADD_TEST(test_temperature_below_pump_threshold)
-    ADD_TEST(test_temperature_above_pump_threshold)
-    ADD_TEST(test_temperature_equal_pump_threshold)
-    ADD_TEST(test_temperature_tank_alarm_threshold)
-    ADD_TEST(test_temperature_tank_critical_threshold)
-    ADD_TEST(test_temperature_collector_critical_threshold)
-    ADD_TEST(test_temperature_collector_freezing_threshold)
-    ADD_TEST(test_pump_off)
-    ADD_TEST(test_pump_on)
-    ADD_TEST(test_pump_force_off)
-    ADD_TEST(test_pump_force_on)
-    ADD_TEST(test_dump_water)
-
-    return CU_get_error();
-}
+CU_TestInfo tests_algorithm[] = {
+    {"test_validate_config", test_validate_config},
+    {"test_temperature_below_pump_threshold", test_temperature_below_pump_threshold},
+    {"test_temperature_above_pump_threshold", test_temperature_above_pump_threshold},
+    {"test_temperature_equal_pump_threshold", test_temperature_equal_pump_threshold},
+    {"test_temperature_tank_alarm_threshold", test_temperature_tank_alarm_threshold},
+    {"test_temperature_tank_critical_threshold", test_temperature_tank_critical_threshold},
+    {"test_temperature_collector_critical_threshold", test_temperature_collector_critical_threshold},
+    {"test_temperature_collector_freezing_threshold", test_temperature_collector_freezing_threshold},
+    {"test_pump_off", test_pump_off},
+    {"test_pump_on", test_pump_on},
+    {"test_pump_force_off", test_pump_force_off},
+    {"test_pump_force_on", test_pump_force_on},
+    {"test_dump_water", test_dump_water},
+    CU_TEST_INFO_NULL,
+};
