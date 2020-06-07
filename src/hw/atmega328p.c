@@ -36,6 +36,19 @@ uint16_t hw_get_adc_input(uint8_t i)
     return ((hi << 8) | low) & 0x3ff; // mask 10 bit value
 }
 
+int hw_output_set(uint8_t i, uint8_t state)
+{
+    if (state)
+    {
+        PORTB |= (1<<i);
+    }
+    else
+    {
+        PORTB &= ~(1<<i);
+    }
+    return 0;
+}
+
 void hw_mssleep(unsigned long d)
 {
     for (unsigned long i = 0; i < d; i++)

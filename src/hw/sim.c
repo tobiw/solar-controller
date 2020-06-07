@@ -36,6 +36,12 @@ int hw_get_adc_input(uint8_t i)
         return -1;
 }
 
+int hw_output_set(uint8_t i, uint8_t state)
+{
+    g_sim_state.relays[i - PIN_RELAY1] = state;
+    return 0;
+}
+
 void hw_mssleep(unsigned long d)
 {
     usleep(d * 1000);

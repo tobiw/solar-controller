@@ -4,6 +4,7 @@ void hw_setup_leds(uint8_t *pins, uint8_t len);
 void hw_setup_inputs(uint8_t *pins, uint8_t len);
 void hw_blink_led(uint8_t i);
 int hw_get_adc_input(uint8_t i);
+int hw_output_set(uint8_t i, uint8_t state);
 void hw_mssleep(unsigned long d);
 void hw_ussleep(unsigned long d);
 void hw_exit();
