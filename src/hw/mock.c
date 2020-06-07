@@ -6,6 +6,13 @@ uint8_t spi_buf_pos = 0;
 extern uint8_t spi_send_buffer[8];
 extern uint8_t spi_recv_buffer[8];
 extern uint8_t spi_selected;
+extern uint8_t output_pins[3];
+
+int hw_output_set(uint8_t i, uint8_t state)
+{
+    output_pins[i] = state;
+    return 0;
+}
 
 void hw_spi_init(uint8_t enable_interrupts)
 {

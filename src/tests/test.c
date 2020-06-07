@@ -3,6 +3,7 @@
 #include "CUnit/Basic.h"
 
 int main_sensors();
+int main_relays();
 int main_wiznet();
 int main_algorithm();
 
@@ -12,6 +13,7 @@ int main(void)
       return CU_get_error();
 
    main_sensors();
+   main_relays();
    main_wiznet();
    main_algorithm();
 

@@ -9,6 +9,9 @@
 #define PIN_LED2 PD3
 #define PIN_SWITCH1 PB0
 #define PIN_SWITCH2 PB1
+#define PIN_RELAY1 PB2 // water pump
+#define PIN_RELAY2 PB3 // hot water dump valve
+#define PIN_RELAY3 PB4 // water tank heater
 
 #else
 
@@ -21,6 +24,9 @@
 #define PIN_LED2 5
 #define PIN_SWITCH1 6
 #define PIN_SWITCH2 7
+#define PIN_RELAY1 0
+#define PIN_RELAY2 1
+#define PIN_RELAY3 2
 
 #endif
 
