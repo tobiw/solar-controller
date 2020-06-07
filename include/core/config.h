@@ -10,4 +10,5 @@ struct sc_config_t {
 
 extern struct sc_config_t sc_config;
 
-int8_t sc_validate_config();
+int8_t sc_config_validate();
+void sc_config_print();
