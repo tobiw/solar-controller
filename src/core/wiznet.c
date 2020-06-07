@@ -13,7 +13,6 @@ extern uint8_t mock_wiznet_regs[32];
 #endif
 
 
-static
 void sc_wiznet_write(uint16_t addr, uint8_t data)
 {
     hw_spi_select(1);
@@ -35,7 +34,6 @@ void sc_wiznet_write_16bit(uint16_t addr, uint16_t data)
     sc_wiznet_write(addr + 1, data & 0x00ff);
 }
 
-static
 uint8_t sc_wiznet_read(uint16_t addr)
 {
 #ifdef UNIT_TEST

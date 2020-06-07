@@ -17,7 +17,7 @@ static int algorithm_clean_suite(void) { return 0; }
 
 void test_validate_config()
 {
-    CU_ASSERT_EQUAL(sc_validate_config(), 1);
+    CU_ASSERT_EQUAL(sc_config_validate(), 1);
 }
 
 void test_temperature_below_pump_threshold()

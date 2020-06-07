@@ -1,9 +1,5 @@
 #include <stdint.h>
 
-#ifdef UNIT_TEST
-#define static
-#endif
-
 #define WIZ_MR   0x0000 // Mode Register
 #define WIZ_GAR  0x0001 // Gateway Address: 0x0001 to 0x0004
 #define WIZ_SUBR 0x0005 // Subnet mask Address: 0x0005 to 0x0008
@@ -66,8 +62,8 @@
 #define WIZ_SOCK_MACRAW      0x42	  // MAC raw mode socket
 #define WIZ_SOCK_PPPOE       0x5F	  // PPPOE socket
 
-static void sc_wiznet_write(uint16_t addr, uint8_t data);
-static uint8_t sc_wiznet_read(uint16_t addr);
+void sc_wiznet_write(uint16_t addr, uint8_t data);
+uint8_t sc_wiznet_read(uint16_t addr);
 void sc_wiznet_init();
 void sc_wiznet_set_mac_address(uint8_t *mac);
 void sc_wiznet_set_ip_address(uint8_t *ip, uint8_t *subnet);

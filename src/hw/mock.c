@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -39,4 +40,9 @@ void hw_mssleep(unsigned long d)
 void hw_ussleep(unsigned long d)
 {
     usleep(d);
+}
+
+void hw_uart_puts(char *s)
+{
+    printf("%s", s);
 }
