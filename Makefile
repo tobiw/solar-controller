@@ -2,6 +2,12 @@ all:
 	make -f Makefile.avr main_avr.hex
 	make -f Makefile.sim sim
 
+avr:
+	make -f Makefile.avr main_avr.hex
+
+sim:
+	make -f Makefile.sim sim
+
 test:
 	cd src/tests && make clean && make
 

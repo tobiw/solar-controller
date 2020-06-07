@@ -29,8 +29,15 @@ void sc_setup()
     sc_serial_printf(NAME " " VERSION "\n----------\n");
 #endif
 
+    // Set default configuration
     sc_config.pump_threshold = 100; // 10 degC
-    if (sc_validate_config() == 0)
+    sc_config.tank_alarm_threshold = 800; // 80 degC
+    sc_config.tank_critical_threshold = 950; // 95 degC
+    sc_config.collector_critical_threshold = 1200; // 120 degC
+    sc_config.collector_freezing_threshold = 10; // 1 degC
+
+    sc_config_print();
+    if (sc_config_validate() == 0)
     {
         sc_serial_printf("Error: Invalid config\n");
         hw_exit();
@@ -50,7 +57,7 @@ void sc_main_loop()
     sc_collector_temperature_set(temp_pt1000);
 
     int temp_ntc10k[3] = {0};
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
     {
         adc = hw_get_adc_input(i+1);
         temp_ntc10k[i] = adc; //(int)(sc_sensors_ntc_conversion(adc) * 10);
